@@ -21,7 +21,7 @@ cat("\nSIMPLE AUERBACH-KOTLIKOFF CLOSED ECONOMY MODEL IN R/C++\n\n");
 tend            = 300L;   # number of periods
 nag             = 100L;   # number of age groups (nag = x => max age = x-1)
 budget_bal      = 3L;     # budget closing instrument (1.. tauW, 2.. tauF, 3.. tauC, 4.. taul, 5.. tauprof, 6.. cG) to fulfill given debt path
-nthrds          = 40L;    # number of threads used in solveOLG() [check no. of available cores with parallel::detectCores()]
+nthrds          = 4L;    # number of threads used in solveOLG() [check no. of available cores with parallel::detectCores()]
 
 # initializes all variables globally
 source('initdata.R');
@@ -42,9 +42,9 @@ source('calib.R');   # <- change parameters in here
 #tauWv = tauWv*1.02; tauWz = per2coh(tauWv);  # wage tax is increased by 2%
 
 ## delayed retirement (uncomment whole block)
-#{rag[1:10] = seq(from=rag0,to=(rag0+2),length.out=10); rag[11:tend]=rag0+2; 
-# notretv[] = 0; for (tt in 1:tend) {notretv[1:floor(rag[tt]),tt] = 1; notretv[floor(rag[tt])+1,tt] = rag[tt]-floor(rag[tt]);}
-#notretz = per2coh(notretv);}                    # effective retirement age is increased linearly by 2 years over the next 10 years
+# {rag[1:10] = seq(from=rag0,to=(rag0+2),length.out=10); rag[11:tend]=rag0+2; 
+#  notretv[] = 0; for (tt in 1:tend) {notretv[1:floor(rag[tt]),tt] = 1; notretv[floor(rag[tt])+1,tt] = rag[tt]-floor(rag[tt]);}
+# notretz = per2coh(notretv);}                    # effective retirement age is increased linearly by 2 years over the next 10 years
 
 ## pension cut
 #pv = pv*0.95; pz = per2coh(pv); # pensions are cut by 5%
@@ -70,7 +70,7 @@ gamv[60:nag,] = 1-(1-gamv[60:nag,])*0.9; gamv[nag,]=0; gamz = per2coh(gamv);  # 
 ##########################
 
 # Solve transition path to new steady state
-solveOLG(starttime = 1, maxiter = 200, tol = 1e-2);
+solveOLG(starttime = 1, maxiter = 200, tol = 1e-4);
 
 # some transition plots
 plot(0:tend,c(r0,r),type="l",xlab="time",ylab="real interest rate")
