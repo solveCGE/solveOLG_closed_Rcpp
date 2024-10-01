@@ -1,6 +1,6 @@
 # number of cohorts
-ncoh = tend + (nag-1L)
-dataOLGnames = c("tend","nag","budget_bal","ncoh");
+ncoh = tend + (nag - 1L)
+dataOLGnames = c("tend", "nag", "budget_bal", "ncoh")
 
 # parameters
 vars_pf  = c("alpha",      # capital-share parameter in production function
@@ -8,17 +8,17 @@ vars_pf  = c("alpha",      # capital-share parameter in production function
             "sigL",        # elasticity of hours-disutility
             "rho",         # discount rate households
             "sigma")       # elasticity of intertemporal substitution
-dataOLGnames = c(dataOLGnames,initvars(timedep=F, agedep=F, vars_pf, float = T))
+dataOLGnames = c(dataOLGnames, initvars(timedep = F, agedep = F, vars_pf, float = T))
 
 # counters
 vars_pi  = c("fag",        # first economically active age group
             "tt")          # time index
-dataOLGnames = c(dataOLGnames,initvars(timedep=F, agedep=F, vars_pi, float = F))
+dataOLGnames = c(dataOLGnames, initvars(timedep = F, agedep = F, vars_pi, float = F))
 
 # age-dependent variables
 vars_a  = c("parlv0",      # multiplicative shift parameter hours-disutillity
             "parlv1")      # additive shift parameter hours-disutillity
-dataOLGnames = c(dataOLGnames,initvars(timedep=F, agedep=T, vars_a))
+dataOLGnames = c(dataOLGnames, initvars(timedep = F, agedep = T, vars_a))
 
 # time-dependent variables
 vars_t  =  c("A",          # aggregate assets
@@ -63,7 +63,7 @@ vars_t  =  c("A",          # aggregate assets
              "tauprof",    # corporate tax rate
              "uck",        # user cost of capital
              "w")          # wage rate
-dataOLGnames = c(dataOLGnames,initvars(timedep=T, agedep=F, vars_t))
+dataOLGnames = c(dataOLGnames, initvars(timedep = T, agedep = F, vars_t))
 
 # age-dependent and time-dependent variables (with v and z suffix)
 vars_at =  c("A",          # assets
@@ -88,8 +88,7 @@ vars_at =  c("A",          # assets
              "theta",      # productivity (age-specific)
              "w",          # wage rate
              "y")          # per-period labor and pension income
-dataOLGnames = c(dataOLGnames,initvars(timedep=T, agedep=T, vars_at))
+dataOLGnames = c(dataOLGnames, initvars(timedep = T, agedep = T, vars_at))
 
 # comment out to create corresponding C++ codes for structure definition, etc.
-#dataOLG = collectglobals(dataOLGnames); gencppcode(dataOLG,prefix="temp/"); stop("C++ code generated in solveOLG_closed_Rcpp/temp! Copy to pkgsolveOLG/src/auto and recompile!");
-
+# dataOLG = collectglobals(dataOLGnames); gencppcode(dataOLG,prefix="temp/"); stop("C++ code generated in solveOLG_closed_Rcpp/temp! Copy to pkgsolveOLG/src/auto and recompile!")
